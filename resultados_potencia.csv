@@ -1,0 +1,2 @@
+escenario,potencia_t_student,potencia_wilcoxon,potencia_hodges_lehmann,potencia_perm_media,potencia_perm_mediana,potencia_perm_trim,tiempo_t_student,tiempo_wilcoxon,tiempo_hodges_lehmann,tiempo_perm_media,tiempo_perm_mediana,tiempo_perm_trim
+1,0.06,0.054,0.054,0.058,0.044,0.058,0.3577916622161865,0.34014010429382324,0.6747548580169678,33.27126669883728,66.65627813339233,461.9291932582855
