@@ -28,6 +28,16 @@ def generar_muestras(escenario):
         y = stats.norm.rvs(loc=1, scale=1, size=N_SIZE)
         outlier_val = 1 + 10 * 1
         y[np.random.choice(N_SIZE, 4, replace=False)] = outlier_val
+    elif escenario == 7.1:                                         # Nuevos escenarios
+        x = stats.norm.rvs(loc=0, scale=1, size=M_SIZE)
+        y = stats.norm.rvs(loc=1, scale=1, size=N_SIZE)
+        outlier_val = 1 - 100 * 1
+        y[np.random.choice(N_SIZE, 4, replace=False)] = outlier_val
+    elif escenario == 7.2:
+        x = stats.norm.rvs(loc=0, scale=1, size=M_SIZE)
+        y = stats.norm.rvs(loc=0, scale=1, size=N_SIZE)
+        outlier_val = 1 + 10 * 1
+        y[np.random.choice(N_SIZE, 4, replace=False)] = outlier_val
     elif escenario == 8:
         x = stats.gamma.rvs(a=1.4, scale=0.8, size=M_SIZE)
         y = stats.pareto.rvs(b=2.1, scale=0.8, size=N_SIZE)

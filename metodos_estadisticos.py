@@ -5,9 +5,12 @@ from config import PERMUTATIONS, ALPHA
 
 
 def test_t_student(x, y):
-    _, p_val = stats.ttest_ind(x, y, equal_var=False)
+    _, p_val = stats.ttest_ind(x, y, equal_var=True)
     return p_val < ALPHA
 
+def test_welch(x, y):
+    _, p_val = stats.ttest_ind(x, y, equal_var=False)
+    return p_val < ALPHA
 
 def test_wilcoxon(x, y):
     _, p_val = stats.mannwhitneyu(x, y, alternative='two-sided')
@@ -47,13 +50,25 @@ def test_permutacion(x, y, estadistico='media'):
     def diff_trim(a, b, axis=0):
         return stats.trim_mean(a, 0.1, axis=axis) - stats.trim_mean(b, 0.1, axis=axis)
 
+    def diff_max_trim_med(a, b, axis=0):
+        d_trim = diff_trim(a, b, axis=axis)
+        d_med = diff_medianas(a, b, axis=axis)
+        return np.maximum(np.abs(d_trim), np.abs(d_med))
+
     if estadistico == 'media':
         stat_func = diff_medias
     elif estadistico == 'mediana':
         stat_func = diff_medianas
-    else:
+    elif estadistico == 'trim':
         stat_func = diff_trim
+    else:
+        stat_func = diff_max_trim_med
 
     res = stats.permutation_test((x, y), stat_func, permutation_type='independent',
                                  n_resamples=PERMUTATIONS, alternative='two-sided', vectorized=True)
     return res.pvalue < ALPHA
+
+def test_ks(x, y):
+    # Prueba Kolmogorov-Smirnov: compara distribuciones completas
+    _, p_val = stats.ks_2samp(x, y)
+    return p_val < ALPHA
